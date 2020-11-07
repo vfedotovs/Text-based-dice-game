@@ -53,8 +53,8 @@ def generate_random_dices(dice_count) ->list:
 
 
 # TODO this table is incomplete add missing options
-table = {'ones  ': 'None', 'twos  ': 'None', 'threes': 'None',
-         'fours ': 'None', 'fives ': 'None', 'sixes ': 'None'}
+table = {'ones  ': '0', 'twos  ': '0', 'threes': '0',
+         'fours ': '0', 'fives ': '0', 'sixes ': '0'}
 
 
 def print_score_table(mydict) ->None:
@@ -67,8 +67,17 @@ def print_score_table(mydict) ->None:
 # TODO merge  get_dice_retrow_selection with single_move funcion
 
 
-def get_dice_retrow_selection():
-    print("Please select which dices you want to keep:(1-5 or 0 to keep all)")
+def get_dice_retrow_selection() ->list:
+    """ Collects user dices order numbers that will be rethrowed from STDIN
+
+    Args:
+        None
+
+    Returns:
+        selection_list - list of integers
+
+    """
+    print("Please select which dices you want to keep:(1-5th or 0 to keep all dices)")
     selection_list = []
     string = input()
 
