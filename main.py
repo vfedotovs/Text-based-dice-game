@@ -17,7 +17,7 @@ import random
 def main():
     move_count = 6  # TODO implement remaining  options
     while move_count > 0:
-        score_table(table)
+        print_score_table(table)
         score_for_save = single_move()
         save_target = user_save_input()
         update_score_table(save_target, score_for_save)
@@ -26,12 +26,12 @@ def main():
     game_end_score(table)
 
 
-def generate_random_dices(dice_count: int) -> list[int]:
+def generate_random_dices(dice_count) ->list:
     """ Simulates multiple dice throw
 
     Based ond dice_count it will return list
 
-    Args:
+    Args:i
         dice_count: int - required element count in list
 
     Returns:
@@ -48,14 +48,17 @@ def generate_random_dices(dice_count: int) -> list[int]:
     return dices_and_values
 
 
+# TODO this table is incomplete add missing options
 table = {'ones  ': 'None', 'twos  ': 'None', 'threes': 'None',
          'fours ': 'None', 'fives ': 'None', 'sixes ': 'None'}
 
 
-def score_table(mydict):
-    print("==== Current score table ====")
+def print_score_table(mydict) ->None:
+    """ Prints current score table """
+    print("==== My Score Table ====")
     for key in mydict:
         print(key, '->', mydict[key])
+
 
 # TODO merge  get_dice_retrow_selection with single_move funcion
 
