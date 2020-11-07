@@ -68,7 +68,7 @@ def print_score_table(mydict) ->None:
 
 
 def get_dice_retrow_selection() ->list:
-    """ Collects user dices order numbers that will be rethrowed from STDIN
+    """ Collects dices order numbers that will be rethrowed from STDIN
 
     Args:
         None
@@ -94,8 +94,9 @@ def single_move() ->list:
     Args:
         None - calls generate_random_dices function to produce dice values
 
-    Return:
-        final_dice_list [ints]
+    Returns:
+        final_dice_list [ints] - if device rethrow selection is 0 first trow
+                                device values are returned
     """
 
 
@@ -107,7 +108,6 @@ def single_move() ->list:
     while trow_again and count > 0:
         temp_list = generate_random_dices(5 - default_dices_to_keep)
         print("Current dice throw: ", temp_list)
-        # contunue here
         alist = get_dice_retrow_selection()
         if alist[0] == 0:
             return temp_list
@@ -120,9 +120,16 @@ def single_move() ->list:
     return final_dice_list
 
 
-def user_save_input():
-    # this will return key value ones - sixes
+def user_save_input() ->str:
+    """ Collects user choise for saving points from STDIN
 
+    Args:
+        None
+
+    Returns:
+        save_input: destination for save option
+
+    """
     save_opts = ['ones', 'twos', 'threes',
                  'fours', 'fives', 'sixes']
     while True:
