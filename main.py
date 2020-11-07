@@ -79,7 +79,17 @@ def get_dice_retrow_selection():
     return selection_list
 
 
-def single_move():
+def single_move() ->list:
+    """ Simulates 3 attempts to throw dices and keep desired dices
+
+    Args:
+        None - calls generate_random_dices function to produce dice values
+
+    Return:
+        final_dice_list [ints]
+    """
+
+
     final_dice_list = []
     trow_again = True
     count = 3
