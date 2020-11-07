@@ -2,16 +2,20 @@ import random
 
 # Single player game backlog
 # [X] 1. Print score table
-# 2. generate and print 5 dices - 1 move - done
-# 3. run over 3 iteration with user selection - result of 5 dices for score save
-# 4. print final result after move 3-iteration dice result
-# 5. get user input where to save - done
-# 6. calculate how many points user will get in his selection - done for ones done for twos
-# 7. update score table dict - done for ones
-# 8. loop to next move with updated score board - working
+# [X] 2. Generate and print required X dice throw with values
+# [ ] 3. Users move
+    # 3.1 Look at current dices and values
+    # 3.2 Select what dices to keep (all or specific)
+    # 3.3 Generate another dice count (depends on selection 3.2) throw with values
+    # 3.4 Move returns 5 dices with values after 3 trow attempts
 
-# once you run out of moves calculate premium and end game score
-# write score to record list
+# [ ] 4. Ask user input for current point save destination option
+# [ ] 5. Calculate points based user selection and 3.4 move return
+# [ ] 6. Update score table with calculated points
+# [ ] 7. Decrement move count and continue with next users move
+
+# Feature 1: calculate premium and end game score
+# Feature 2: Score to record list
 
 
 def main():
