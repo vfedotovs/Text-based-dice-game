@@ -25,7 +25,7 @@ def main():
         score_for_save = single_move()
         save_target = user_save_input()
         update_score_table(save_target, score_for_save)
-        # calculate_score(save_target, score_for_save, save_target[1])
+        # calculate_score(save_target, score_for_save, save_target[1])  #TODO:fix bug not updating score table and remove duplicate code old function
         move_count -= 1
 
     game_end_score(table)
