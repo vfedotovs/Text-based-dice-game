@@ -36,7 +36,7 @@ def generate_random_dices(dice_count) ->list:
 
     Based ond dice_count it will return list
 
-    Args:i
+    Args:
         dice_count: int - required element count in list
 
     Returns:
@@ -65,7 +65,36 @@ def print_score_table(mydict) ->None:
         print(key, '->', mydict[key])
 
 
-# TODO merge  get_dice_retrow_selection with single_move funcion
+def is_valid_selection(dice_values: List[int], user_selection: str) -> bool:
+    """ Convert user selection to ints and compare with
+    dice value list if user selection lenght and values are valid
+
+    Args:
+        dice values:
+        user_selection:
+
+    Returns:
+        True if selection is valid
+
+    Rises:
+        #TODO: catch and add correct exception
+
+    """
+    valid_rethrow_opts = [1, 2, 3, 4, 5, 0, 9]  # 0 - keep all dices, 9 - rethrow all dices
+    slen = len(user_selection)
+    if slen == 0:
+        return True
+    if slen > 5:
+        return False
+        else:
+            # TODO implement validation if this conversion does not fail
+            selection_ints = [int(item) for item in user_selection]
+            count = 0
+            for item in selection_ints:
+                if item in valid_rethrow_ots:
+                    count += 1
+            if count == slen:
+                return True
 
 
 def get_dice_retrow_selection() ->list:
@@ -100,22 +129,23 @@ def single_move() ->list:
                                 device values are returned
     """
 
-
     final_dice_list = []
     trow_again = True
     count = 3
     default_dices_to_keep = 0
 
     while trow_again and count > 0:
-        temp_list = generate_random_dices(5 - default_dices_to_keep)
-        print("Current dice throw: ", temp_list)
-        alist = get_dice_retrow_selection()
-        if alist[0] == 0:
-            return temp_list
+        first_throw_values = generate_random_dices(5 - default_dices_to_keep)
+        print("Current dice throw: ", first_throw_values)
+        dices_to_keep = get_dice_retrow_selection()  # returns str list with numbers
+
+        # This handles scenario keep all dices from first throw
+        if dices_to_keep[0] == 0:
+            return first_throw_values
         default_dices_to_keep = default_dices_to_keep + len(alist)
         count -= 1
 
-    for drow in temp_list:
+    for drow in first_throw_values:
         final_dice_list.append(drow)
 
     return final_dice_list
