@@ -146,20 +146,27 @@ def single_move() ->list:
     default_dices_to_keep = 0
 
     while trow_again and count > 0:
-        first_throw_values = generate_random_dices(5 - default_dices_to_keep)
-        print("Current dice throw: ", first_throw_values)
+        print("Debug info: ", )
+        dice_count = 5 - default_dices_to_keep
+        print("Debug info dice count : ", dice_count, "type of dice count :" ,type(dice_count) )
+        first_throw_values = generate_random_dices(dice_count)
+        print("Current dices and values: ", first_throw_values)
         dices_to_keep = get_dice_retrow_selection()  # returns str list with numbers
 
         if is_valid_selection(first_throw_values, dices_to_keep):
             # This handles scenario keep all dices from first throw
             if dices_to_keep[0] == 0:
-                return first_throw_values
-            if dices_to_keep[0] == 9:
-                default_dices_to_keep = default_dices_to_keep
-                count -= 1
+                return first_throw_values # TODO fix me not correct valid on if after first throw 0 is selected
+
+            # This is redundant to rethrow al dices just select 1,2,3,4,5
+            # if dices_to_keep[0] == 9:
+            #    default_dices_to_keep = default_dices_to_keep
+            #    count -= 1
             else:
                 default_dices_to_keep = default_dices_to_keep + len(dices_to_keep)
                 count -= 1
+        else:
+            print("Your selection was not valid please try again")
 
     for drow in first_throw_values:
         final_dice_list.append(drow)
