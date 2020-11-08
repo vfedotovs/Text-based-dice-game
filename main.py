@@ -65,7 +65,7 @@ def print_score_table(mydict) ->None:
         print(key, '->', mydict[key])
 
 
-def is_valid_selection(dice_values: List[int], user_selection: str) -> bool:
+def is_valid_selection(dice_values: list, user_selection: str) -> bool:
     """ Convert user selection to ints and compare with
     dice value list if user selection lenght and values are valid
 
@@ -88,22 +88,24 @@ def is_valid_selection(dice_values: List[int], user_selection: str) -> bool:
         return False
     # Cases rethow all - 9 or keep all 0
     if slen == 1:
-        if user_selection[0] == 0 or user_selection[0] == 9:
-            retrun True
+        if user_selection[0] == 0:
+            return True
+        if user_selection[0] == 9:
+            return True
         else:
             return False
 
     if slen > 5:
         return False
-        else:
-            # TODO implement validation if this conversion does not fail
-            selection_ints = [int(item) for item in user_selection]
-            count = 0
-            for item in selection_ints:
-                if item in valid_rethrow_ots:
-                    count += 1
-            if count == slen:
-                return True
+    else:
+        # TODO implement validation if this conversion does not fail
+        selection_ints = [int(item) for item in user_selection]
+        count = 0
+        for item in selection_ints:
+            if item in valid_rethrow_opts:
+                count += 1
+        if count == slen:
+            return True
 
 
 def get_dice_retrow_selection() ->list:
@@ -123,7 +125,7 @@ def get_dice_retrow_selection() ->list:
     for x in string:
         selection_list.append(int(x))
 
-    print("selection debug info: ", selection_list)
+    print("Order number of dice was selected #TODO print dice values: ", selection_list)
     return selection_list
 
 
@@ -148,11 +150,16 @@ def single_move() ->list:
         print("Current dice throw: ", first_throw_values)
         dices_to_keep = get_dice_retrow_selection()  # returns str list with numbers
 
-        # This handles scenario keep all dices from first throw
-        if dices_to_keep[0] == 0:
-            return first_throw_values
-        default_dices_to_keep = default_dices_to_keep + len(alist)
-        count -= 1
+        if is_valid_selection(first_throw_values, dices_to_keep):
+            # This handles scenario keep all dices from first throw
+            if dices_to_keep[0] == 0:
+                return first_throw_values
+            if dices_to_keep[0] == 9:
+                default_dices_to_keep = default_dices_to_keep
+                count -= 1
+            else:
+                default_dices_to_keep = default_dices_to_keep + len(dices_to_keep)
+                count -= 1
 
     for drow in first_throw_values:
         final_dice_list.append(drow)
