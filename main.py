@@ -25,6 +25,7 @@ def main():
         score_for_save = single_move()
         save_target = user_save_input()
         update_score_table(save_target, score_for_save)
+        # calculate_score(save_target, score_for_save, save_target[1])
         move_count -= 1
 
     game_end_score(table)
@@ -39,7 +40,7 @@ def generate_random_dices(dice_count) ->list:
         dice_count: int - required element count in list
 
     Returns:
-        dices_and_values -  dice count elements with values in range 1-6
+        dices_and_values - dice count elements with values in range 1-6
 
     Rises:
           None
@@ -120,25 +121,46 @@ def single_move() ->list:
     return final_dice_list
 
 
-def user_save_input() ->str:
+def user_save_input() ->list:
     """ Collects user choise for saving points from STDIN
 
     Args:
         None
 
     Returns:
-        save_input: destination for save option
+        save_input, opts_map[save_input] - list example: ones, 1
 
     """
     save_opts = ['ones', 'twos', 'threes',
                  'fours', 'fives', 'sixes']
+
     while True:
         save_input = str(
-            input("Please enter destination for piont save (ex. ones):"))
+            input("Please enter destination for piont save (ex. ones, twos ...):"))
         if save_input in save_opts:
             return save_input
+
         else:
             print("Invalit save option try again")
+
+
+def calculate_score(dest_opt: list, dice_values: list, point_value: str):
+    """ Calculate score and update table with score
+
+    Args:
+        #TODO
+
+    Returns:
+        None
+    """
+    count = 0
+    for value in dice_values:
+        if value == point_value:
+            count += point_value
+    table_key = dest_opt[0]
+    key_point_value = count
+
+    table[table_key] = key_point_value
 
 
 def update_score_table(save_input, score):
