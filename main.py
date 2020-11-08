@@ -80,10 +80,19 @@ def is_valid_selection(dice_values: List[int], user_selection: str) -> bool:
         #TODO: catch and add correct exception
 
     """
-    valid_rethrow_opts = [1, 2, 3, 4, 5, 0, 9]  # 0 - keep all dices, 9 - rethrow all dices
+    valid_rethrow_opts = [1, 2, 3, 4, 5]
+    special_cases = [0 ,9]
     slen = len(user_selection)
+
     if slen == 0:
-        return True
+        return False
+    # Cases rethow all - 9 or keep all 0
+    if slen == 1:
+        if user_selection[0] == 0 or user_selection[0] == 9:
+            retrun True
+        else:
+            return False
+
     if slen > 5:
         return False
         else:
