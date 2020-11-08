@@ -3,16 +3,16 @@ import random
 # Single player game backlog
 # [X] 1. Print score table
 # [X] 2. Generate and print required X dice throw with values
-# [ ] 3. Users move
-    # 3.1 Look at current dices and values
-    # 3.2 Select what dices to keep (all or specific)
-    # 3.3 Generate another dice count (depends on selection 3.2) throw with values
-    # 3.4 Move returns 5 dices with values after 3 trow attempts
+# [X] 3. Users move
+    # [X] 3.1 Look at current dices and values
+    # [X] 3.2 Select what dices to keep (all or specific)
+    # [X] 3.3 Generate another dice count (depends on selection 3.2) throw with values
+    # [X] 3.4 Move returns 5 dices with values after 3 trow attempts
 
-# [ ] 4. Ask user input for current point save destination option
-# [ ] 5. Calculate points based user selection and 3.4 move return
-# [ ] 6. Update score table with calculated points
-# [ ] 7. Decrement move count and continue with next users move
+# [X] 4. Ask user input for current point save destination option
+# [X] 5. Calculate points based user selection and 3.4 move return
+# [ ] 6. Update score table with calculated points -- #TODO fix this bug
+# [X] 7. Decrement move count and continue with next users move
 
 # Feature 1: calculate premium and end game score
 # Feature 2: Score to record list
