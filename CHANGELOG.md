@@ -11,6 +11,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Upper-section bonus: scoring 63+ in the upper section earns a flat 35-point
   bonus, included in `total_score` and shown in the printed score table
   (`scoring.upper_section_subtotal`/`upper_section_bonus`). (#7)
+- Lower-section scoring: three/four of a kind, full house, small/large straight,
+  yahtzee, and chance, each with its own pure scorer and dispatched through
+  `score_category`. The score table now distinguishes *unfilled* (`None`) from a
+  played `0`, the CLI groups the sheet into upper/lower sections, and a full game
+  plays all 13 categories. (#4)
 
 ## [0.1.0] - 2026-06-07
 
