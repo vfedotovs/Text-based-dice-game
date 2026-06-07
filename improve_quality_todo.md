@@ -102,15 +102,19 @@ makes testing nearly impossible. Steps:
 
 ---
 
-## 5. Tests
+## 5. Tests (DONE)
 
-- [ ] Use **pytest**. Mirror the package structure under `tests/`.
-- [ ] Test pure functions directly (now easy after the I/O split).
-- [ ] For randomness: seed `random.seed()` or inject a RNG; assert on
-      length/range invariants.
-- [ ] For CLI: use `monkeypatch`/`capsys` to mock `input()` and capture stdout.
-- [ ] Track coverage with `pytest-cov`; aim for a sensible target (e.g. 80%+).
-- [ ] See `todo_inplement_tests.md` for the per-function test checklist.
+- [x] Use **pytest**, mirroring the package structure under `tests/`
+      (`test_dice.py`, `test_scoring.py`, `test_game.py`, `test_cli.py`).
+- [x] Test pure functions directly (easy after the I/O split).
+- [x] Randomness handled via injected `random.Random(seed)` / monkeypatched
+      `random.randint`; assertions on length/range invariants.
+- [x] CLI driven with `monkeypatch` (`input`) and `capsys` (stdout), including a
+      full `main()` game played end-to-end.
+- [x] Coverage via `pytest-cov`: **96%** (only entry-point `__main__`/`__name__`
+      guards uncovered). 56 tests passing.
+- [x] `tests` added to the mypy `files` list; ruff + mypy clean on tests too.
+- [x] Per-function checklist in `todo_inplement_tests.md` all ticked.
 
 ---
 
