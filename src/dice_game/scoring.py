@@ -19,6 +19,10 @@ CATEGORIES: tuple[str, ...] = (
 
 _FACE_OF: dict[str, int] = {name: face for face, name in enumerate(CATEGORIES, start=1)}
 
+# Yahtzee upper-section bonus: reaching the threshold earns a flat bonus.
+UPPER_SECTION_THRESHOLD = 63
+UPPER_SECTION_BONUS = 35
+
 
 def new_score_table() -> dict[str, int]:
     """Return a fresh score table with every category initialised to 0."""
@@ -43,6 +47,18 @@ def score_category(category: str, dice_values: list[int]) -> int:
     return sum(value for value in dice_values if value == face)
 
 
+def upper_section_subtotal(table: dict[str, int]) -> int:
+    """Return the sum of the six upper-section category scores."""
+    return sum(table[category] for category in CATEGORIES)
+
+
+def upper_section_bonus(table: dict[str, int]) -> int:
+    """Return the bonus if the subtotal reaches the threshold, else 0."""
+    if upper_section_subtotal(table) >= UPPER_SECTION_THRESHOLD:
+        return UPPER_SECTION_BONUS
+    return 0
+
+
 def total_score(table: dict[str, int]) -> int:
-    """Return the sum of all category scores in ``table``."""
-    return sum(table.values())
+    """Return the upper subtotal plus any earned bonus."""
+    return upper_section_subtotal(table) + upper_section_bonus(table)

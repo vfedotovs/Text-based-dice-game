@@ -13,11 +13,20 @@ KEEP_ALL = "0"
 
 
 def print_score_table(table: dict[str, int]) -> None:
-    """Print the current score table."""
+    """Print the current score table with the upper-section subtotal and bonus."""
     print("==== My Score Table ====")
-    width = max(len(category) for category in table)
+    width = max(len(label) for label in (*table, "subtotal", "bonus"))
     for category, value in table.items():
         print(f"  {category.ljust(width)} -> {value}")
+
+    subtotal = scoring.upper_section_subtotal(table)
+    bonus = scoring.upper_section_bonus(table)
+    print("  " + "-" * (width + 6))
+    print(f"  {'subtotal'.ljust(width)} -> {subtotal}")
+    print(
+        f"  {'bonus'.ljust(width)} -> {bonus}  "
+        f"({scoring.UPPER_SECTION_THRESHOLD}+ earns {scoring.UPPER_SECTION_BONUS})"
+    )
 
 
 def prompt_keep_selection(dice_values: list[int], throw_number: int) -> list[int]:

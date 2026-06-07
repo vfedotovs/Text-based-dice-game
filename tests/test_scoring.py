@@ -60,6 +60,48 @@ class TestScoreCategory:
             scoring.score_category("sevens", [1, 2, 3])
 
 
+def _table_with_subtotal_63() -> dict[str, int]:
+    """Return a table whose upper-section subtotal is exactly 63."""
+    table = scoring.new_score_table()
+    table["fours"] = 20
+    table["fives"] = 25
+    table["threes"] = 15
+    table["ones"] = 3
+    return table  # 20 + 25 + 15 + 3 == 63
+
+
+class TestUpperSectionSubtotal:
+    def test_sums_the_six_categories(self) -> None:
+        table = scoring.new_score_table()
+        table["threes"] = 9
+        table["sixes"] = 12
+        assert scoring.upper_section_subtotal(table) == 21
+
+    def test_empty_table_is_zero(self) -> None:
+        assert scoring.upper_section_subtotal(scoring.new_score_table()) == 0
+
+
+class TestUpperSectionBonus:
+    def test_below_threshold_scores_zero(self) -> None:
+        table = _table_with_subtotal_63()
+        table["ones"] = 2  # subtotal now 62, one short
+        assert scoring.upper_section_subtotal(table) == 62
+        assert scoring.upper_section_bonus(table) == 0
+
+    def test_exactly_at_threshold_earns_bonus(self) -> None:
+        table = _table_with_subtotal_63()
+        assert scoring.upper_section_subtotal(table) == 63
+        assert scoring.upper_section_bonus(table) == scoring.UPPER_SECTION_BONUS
+
+    def test_above_threshold_earns_bonus(self) -> None:
+        table = _table_with_subtotal_63()
+        table["ones"] = 5  # subtotal now 65
+        assert scoring.upper_section_bonus(table) == scoring.UPPER_SECTION_BONUS
+
+    def test_empty_table_earns_no_bonus(self) -> None:
+        assert scoring.upper_section_bonus(scoring.new_score_table()) == 0
+
+
 class TestTotalScore:
     def test_sums_all_values(self) -> None:
         table = scoring.new_score_table()
@@ -69,3 +111,21 @@ class TestTotalScore:
 
     def test_empty_game_totals_zero(self) -> None:
         assert scoring.total_score(scoring.new_score_table()) == 0
+
+    def test_below_threshold_excludes_bonus(self) -> None:
+        table = _table_with_subtotal_63()
+        table["ones"] = 2  # subtotal 62
+        assert scoring.total_score(table) == 62
+
+    def test_at_threshold_includes_bonus(self) -> None:
+        table = _table_with_subtotal_63()  # subtotal 63
+        assert scoring.total_score(table) == 63 + scoring.UPPER_SECTION_BONUS
+
+    def test_maximum_game(self) -> None:
+        # Every category maxed: 5 + 10 + 15 + 20 + 25 + 30 == 105, plus bonus.
+        table = {
+            category: 5 * face
+            for face, category in enumerate(scoring.CATEGORIES, start=1)
+        }
+        assert scoring.upper_section_subtotal(table) == 105
+        assert scoring.total_score(table) == 105 + scoring.UPPER_SECTION_BONUS
