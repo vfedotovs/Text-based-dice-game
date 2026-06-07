@@ -152,19 +152,15 @@ makes testing nearly impossible. Steps:
 
 ---
 
-## 8. Documentation
+## 8. Documentation (DONE)
 
-- [ ] **Rewrite `README.md`** to include:
-      - Project description + a short demo (asciinema GIF or sample session).
-      - Install instructions (`pip install dice-game` or from source).
-      - Usage / how to run (`dice-game` or `python -m dice_game`).
-      - Game rules summary.
-      - Development setup, running tests, contributing pointer.
-      - Badges + license.
-- [ ] Add `LICENSE`, `CONTRIBUTING.md`, and a `CHANGELOG.md`.
-- [ ] Optional: full docs site with **MkDocs (Material theme)** under `docs/`,
-      auto-deployed to GitHub Pages via Actions.
-- [ ] Add docstrings (already partially present — fix typos: "Rises"→"Raises").
+- [x] **Rewrote `README.md`**: description, sample session, install (source +
+      editable dev), usage (`dice-game` / `python -m dice_game`), rules summary,
+      development gate, src-layout overview, badges, license.
+- [x] Added `LICENSE` (MIT), `CONTRIBUTING.md` (and `CHANGELOG.md` in §7).
+- [x] Docstrings present across the package with typos fixed ("Raises", etc.).
+- [ ] ~~Optional MkDocs (Material) site on GitHub Pages~~ — deferred by choice;
+      revisit if the project grows. (Needs Pages enabled in repo settings.)
 
 ---
 
