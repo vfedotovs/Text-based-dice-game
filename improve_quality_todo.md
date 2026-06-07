@@ -68,22 +68,22 @@ makes testing nearly impossible. Steps:
 
 ---
 
-## 3. Packaging — `pyproject.toml`
+## 3. Packaging — `pyproject.toml` (DONE)
 
-- [ ] Create `pyproject.toml` with a PEP 621 `[project]` table (name, version,
-      description, authors, `requires-python`, dependencies).
-- [ ] Use a modern build backend (`hatchling` or `setuptools`).
-- [ ] Define a console entry point so the game installs as a command:
-      ```toml
-      [project.scripts]
-      dice-game = "dice_game.cli:main"
-      ```
-- [ ] Add an optional dev dependency group:
-      ```toml
-      [project.optional-dependencies]
-      dev = ["pytest", "pytest-cov", "ruff", "mypy"]
-      ```
-- [ ] After this, `pip install -e ".[dev]"` sets up a full dev environment.
+- [x] Create `pyproject.toml` with a PEP 621 `[project]` table (name, version,
+      description, authors, `requires-python >=3.10`, classifiers, URLs).
+- [x] Use a modern build backend (**hatchling**); version is single-sourced
+      from `src/dice_game/__init__.py` via `[tool.hatch.version]`.
+- [x] Define a console entry point so the game installs as a command:
+      `dice-game = "dice_game.cli:main"`.
+- [x] Add an optional dev dependency group
+      (`pytest`, `pytest-cov`, `ruff`, `mypy`).
+- [x] Verified `pip install -e ".[dev]"` works and `dice-game` runs; verified
+      `python -m build` produces a wheel + sdist containing all modules and
+      `py.typed`.
+
+> Next: §4 tooling config (ruff/mypy in this same `pyproject.toml`) and §5
+> tests. The root `main.py` shim can now be deleted in favour of `dice-game`.
 
 ---
 
