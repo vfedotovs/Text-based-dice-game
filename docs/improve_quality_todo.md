@@ -114,7 +114,7 @@ makes testing nearly impossible. Steps:
 - [x] Coverage via `pytest-cov`: **96%** (only entry-point `__main__`/`__name__`
       guards uncovered). 56 tests passing.
 - [x] `tests` added to the mypy `files` list; ruff + mypy clean on tests too.
-- [x] Per-function checklist in `todo_inplement_tests.md` all ticked.
+- [x] Per-function checklist in `docs/implement_tests.md` all ticked.
 
 ---
 

@@ -2,7 +2,7 @@
 """Transitional entry point.
 
 The game now lives in the ``src/dice_game`` package. Until packaging is set up
-(see action item 3 in ``improve_quality_todo.md``), this shim puts ``src`` on the
+(see action item 3 in ``docs/improve_quality_todo.md``), this shim puts ``src`` on the
 import path so ``python main.py`` keeps working. After ``pip install -e .`` you
 can instead run ``dice-game`` or ``python -m dice_game`` and delete this file.
 """
