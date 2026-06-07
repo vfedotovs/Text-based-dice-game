@@ -16,10 +16,14 @@ from .dice import (
 )
 from .scoring import (
     CATEGORIES,
+    UPPER_SECTION_BONUS,
+    UPPER_SECTION_THRESHOLD,
     is_valid_category,
     new_score_table,
     score_category,
     total_score,
+    upper_section_bonus,
+    upper_section_subtotal,
 )
 
 __version__ = "0.1.0"
@@ -36,8 +40,12 @@ __all__ = [
     "roll_dice",
     # scoring
     "CATEGORIES",
+    "UPPER_SECTION_BONUS",
+    "UPPER_SECTION_THRESHOLD",
     "is_valid_category",
     "new_score_table",
     "score_category",
     "total_score",
+    "upper_section_bonus",
+    "upper_section_subtotal",
 ]

@@ -73,6 +73,19 @@ class TestPrinters:
         for category in scoring.CATEGORIES:
             assert category in out
 
+    def test_print_score_table_shows_subtotal_and_bonus(
+        self, capsys: pytest.CaptureFixture[str]
+    ) -> None:
+        table = scoring.new_score_table()
+        table["fours"] = 20
+        table["fives"] = 25
+        table["threes"] = 15
+        table["ones"] = 3  # subtotal 63 -> bonus earned
+        cli.print_score_table(table)
+        out = capsys.readouterr().out
+        assert "subtotal -> 63" in out
+        assert f"bonus    -> {scoring.UPPER_SECTION_BONUS}" in out
+
     def test_print_final_score(self, capsys: pytest.CaptureFixture[str]) -> None:
         table = scoring.new_score_table()
         table["sixes"] = 12

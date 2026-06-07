@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- Upper-section bonus: scoring 63+ in the upper section earns a flat 35-point
+  bonus, included in `total_score` and shown in the printed score table
+  (`scoring.upper_section_subtotal`/`upper_section_bonus`). (#7)
+
 ## [0.1.0] - 2026-06-07
 
 First packaged release. The original single-file script was rebuilt into a
