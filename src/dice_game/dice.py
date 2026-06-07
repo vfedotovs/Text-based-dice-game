@@ -8,7 +8,7 @@ the ``rng`` parameter so tests can pass a seeded ``random.Random`` instance.
 from __future__ import annotations
 
 import random
-from typing import Iterable
+from collections.abc import Iterable
 
 NUM_DICE = 5
 DIE_MIN = 1

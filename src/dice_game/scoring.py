@@ -22,7 +22,7 @@ _FACE_OF: dict[str, int] = {name: face for face, name in enumerate(CATEGORIES, s
 
 def new_score_table() -> dict[str, int]:
     """Return a fresh score table with every category initialised to 0."""
-    return {category: 0 for category in CATEGORIES}
+    return dict.fromkeys(CATEGORIES, 0)
 
 
 def is_valid_category(category: str) -> bool:

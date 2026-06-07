@@ -51,9 +51,11 @@ def prompt_save_category(table: dict[str, int]) -> str:
     """Ask the player which category to save points to, looping until valid."""
     available = [c for c in scoring.CATEGORIES if table[c] == 0]
     while True:
-        choice = input(
-            f"Save points to which category? ({', '.join(available)}): "
-        ).strip().lower()
+        choice = (
+            input(f"Save points to which category? ({', '.join(available)}): ")
+            .strip()
+            .lower()
+        )
         if scoring.is_valid_category(choice):
             return choice
         print("Invalid category, please try again.")

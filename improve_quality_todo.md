@@ -87,13 +87,18 @@ makes testing nearly impossible. Steps:
 
 ---
 
-## 4. Tooling / Code Quality
+## 4. Tooling / Code Quality (DONE)
 
-- [ ] **Ruff** for linting + formatting (replaces flake8/black/isort). Configure
-      in `pyproject.toml`.
-- [ ] **mypy** for static type checking.
-- [ ] **pre-commit** (`.pre-commit-config.yaml`) running ruff + mypy on commit.
-- [ ] Add an `EditorConfig` (`.editorconfig`) for consistent whitespace.
+- [x] **Ruff** for linting + formatting, configured in `pyproject.toml`
+      (`E,W,F,I,UP,B,C4,SIM` rule set, line length 88). `ruff check` and
+      `ruff format --check` both pass.
+- [x] **mypy** in `--strict` mode, configured in `pyproject.toml` — passes with
+      no issues across `src`. (Add `tests` to `files` once §5 lands.)
+- [x] **pre-commit** (`.pre-commit-config.yaml`) running ruff, ruff-format,
+      mypy, and a few hygiene hooks. Enable with `pre-commit install`.
+- [x] Added `.editorconfig` for consistent whitespace/indentation.
+- [x] Also added `[tool.pytest.ini_options]` (with `pythonpath = ["src"]`) to
+      `pyproject.toml` so the §5 test suite runs without an install.
 
 ---
 
