@@ -44,22 +44,27 @@ Text-based-dice-game/
 
 ---
 
-## 2. Refactor `main.py` Into a Package (do this first)
+## 2. Refactor `main.py` Into a Package (DONE)
 
 The biggest blocker to professionalism is that logic and I/O are tangled, which
 makes testing nearly impossible. Steps:
 
-- [ ] Create `src/dice_game/` and move code into the modules above.
-- [ ] **Separate pure logic from I/O.** Functions like `generate_random_dices`,
-      `is_valid_selection`, `update_score_table`, and `game_end_score` should
-      take arguments and return values — no `print()`/`input()` inside.
-- [ ] Push all `print()`/`input()` into `cli.py`.
-- [ ] Fix the open bugs noted in `todo_inplement_tests.md` (string vs int score
-      table, trailing-space keys, `single_move` keep-dice bug, implicit `None`
-      return in `is_valid_selection`).
-- [ ] Replace the module-level mutable `table` dict with a class or a factory
-      function (`new_score_table()`) so each game/test gets a fresh state.
-- [ ] Add type hints throughout and a `py.typed` marker file.
+- [x] Create `src/dice_game/` and move code into the modules above
+      (`dice.py`, `scoring.py`, `game.py`, `cli.py`, `__main__.py`, `__init__.py`).
+- [x] **Separate pure logic from I/O.** `dice.py` and `scoring.py` are pure
+      (args in, values out); `game.play_turn` takes a `prompt_keep` callable so
+      it has no I/O of its own.
+- [x] Push all `print()`/`input()` into `cli.py`.
+- [x] Fix the open bugs: int score table (no more strings), clean keys (no
+      trailing spaces), `single_move`→`play_turn` now preserves kept dice across
+      rerolls, validation returns explicit `bool`.
+- [x] Replace the module-level mutable `table` dict with a factory
+      `scoring.new_score_table()` so each game/test gets fresh state.
+- [x] Add type hints throughout and a `py.typed` marker file.
+
+> Note: `roll_dice`/`reroll`/`play_turn` accept an injectable `rng` for
+> deterministic tests. `main.py` at the repo root is now a thin transitional
+> shim (adds `src/` to the path) and should be deleted once §3 packaging lands.
 
 ---
 
