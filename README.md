@@ -1,6 +1,7 @@
 # Text-based-dice-game
 
 [![CI](https://github.com/vfedotovs/Text-based-dice-game/actions/workflows/ci.yml/badge.svg)](https://github.com/vfedotovs/Text-based-dice-game/actions/workflows/ci.yml)
+[![codecov](https://codecov.io/gh/vfedotovs/Text-based-dice-game/branch/main/graph/badge.svg)](https://codecov.io/gh/vfedotovs/Text-based-dice-game)
 [![Python](https://img.shields.io/badge/python-3.10%2B-blue)](https://www.python.org/)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 

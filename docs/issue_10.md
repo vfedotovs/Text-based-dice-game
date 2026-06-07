@@ -139,13 +139,15 @@ Once both parts are live:
 
 ## Implementation checklist
 
-- [ ] Enable the repo on Codecov and add the `CODECOV_TOKEN` GitHub secret.
-- [ ] Replace the commented upload stub in `ci.yml` with the guarded
+- [ ] **(Manual — maintainer)** Enable the repo on Codecov and add the
+      `CODECOV_TOKEN` GitHub secret. **Required before merging to `main`**, since
+      the upload step uses `fail_ci_if_error: true`.
+- [x] Replace the commented upload stub in `ci.yml` with the guarded
       `codecov/codecov-action@v5` step (single-version upload).
-- [ ] (Optional) Add `codecov.yml` with non-blocking thresholds.
-- [ ] Add the Codecov badge to `README.md`.
-- [ ] Add PyPI version + pyversions badges to `README.md` (with/after the first
-      PyPI publish).
+- [x] Add `codecov.yml` with non-blocking thresholds.
+- [x] Add the Codecov badge to `README.md`.
+- [ ] Add PyPI version + pyversions badges to `README.md` — **deferred** to the
+      PyPI publishing PR (badges 404 until the first publish).
 - [ ] Open a PR; confirm the CI run uploads coverage and the badge renders.
 
 ## Acceptance criteria (from the issue)
