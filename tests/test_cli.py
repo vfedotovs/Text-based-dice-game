@@ -62,6 +62,15 @@ class TestPromptSaveCategory:
         assert cli.prompt_save_category(scoring.new_score_table()) == "ones"
         assert "Invalid category" in capsys.readouterr().out
 
+    def test_reprompts_on_already_filled_category(
+        self, monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str]
+    ) -> None:
+        table = scoring.new_score_table()
+        table["ones"] = 3  # already played, must not be offered again
+        feed_input(monkeypatch, ["ones", "twos"])
+        assert cli.prompt_save_category(table) == "twos"
+        assert "Invalid category" in capsys.readouterr().out
+
 
 class TestPrinters:
     def test_print_score_table_shows_categories(
@@ -83,8 +92,21 @@ class TestPrinters:
         table["ones"] = 3  # subtotal 63 -> bonus earned
         cli.print_score_table(table)
         out = capsys.readouterr().out
-        assert "subtotal -> 63" in out
-        assert f"bonus    -> {scoring.UPPER_SECTION_BONUS}" in out
+        assert "subtotal" in out
+        assert "-> 63" in out
+        assert (
+            f"({scoring.UPPER_SECTION_THRESHOLD}+ earns {scoring.UPPER_SECTION_BONUS})"
+            in out
+        )
+
+    def test_print_score_table_marks_unfilled_categories(
+        self, capsys: pytest.CaptureFixture[str]
+    ) -> None:
+        cli.print_score_table(scoring.new_score_table())
+        out = capsys.readouterr().out
+        assert "-> -" in out  # an unplayed category renders as "-"
+        for category in scoring.LOWER_CATEGORIES:
+            assert category in out
 
     def test_print_final_score(self, capsys: pytest.CaptureFixture[str]) -> None:
         table = scoring.new_score_table()
@@ -108,8 +130,12 @@ def test_main_plays_full_game(
 
     out = capsys.readouterr().out
     assert "Game over" in out
-    # Every die is a 4, so only the "fours" turn scores: 5 dice * 4 = 20.
-    assert "your final score is: 20" in out
+    # Every die is a 4 ([4, 4, 4, 4, 4]) for all 13 turns:
+    #   upper: fours = 20, others 0 (subtotal 20, no bonus)
+    #   lower: 3-of-a-kind 20, 4-of-a-kind 20, full house 0, small/large straight 0,
+    #          yahtzee 50, chance 20
+    # Grand total = 20 + (20 + 20 + 50 + 20) = 130.
+    assert "your final score is: 130" in out
 
 
 def test_keep_all_constant_matches_dice_count() -> None:

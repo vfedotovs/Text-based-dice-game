@@ -12,12 +12,19 @@ from . import dice, game, scoring
 KEEP_ALL = "0"
 
 
-def print_score_table(table: dict[str, int]) -> None:
-    """Print the current score table with the upper-section subtotal and bonus."""
+def _format_value(value: int | None) -> str:
+    """Render a category value, showing unfilled categories as ``-``."""
+    return "-" if value is None else str(value)
+
+
+def print_score_table(table: scoring.ScoreTable) -> None:
+    """Print the score table grouped by section, with subtotal and bonus."""
     print("==== My Score Table ====")
     width = max(len(label) for label in (*table, "subtotal", "bonus"))
-    for category, value in table.items():
-        print(f"  {category.ljust(width)} -> {value}")
+
+    print("  -- Upper section --")
+    for category in scoring.UPPER_CATEGORIES:
+        print(f"  {category.ljust(width)} -> {_format_value(table[category])}")
 
     subtotal = scoring.upper_section_subtotal(table)
     bonus = scoring.upper_section_bonus(table)
@@ -27,6 +34,10 @@ def print_score_table(table: dict[str, int]) -> None:
         f"  {'bonus'.ljust(width)} -> {bonus}  "
         f"({scoring.UPPER_SECTION_THRESHOLD}+ earns {scoring.UPPER_SECTION_BONUS})"
     )
+
+    print("  -- Lower section --")
+    for category in scoring.LOWER_CATEGORIES:
+        print(f"  {category.ljust(width)} -> {_format_value(table[category])}")
 
 
 def prompt_keep_selection(dice_values: list[int], throw_number: int) -> list[int]:
@@ -56,21 +67,21 @@ def prompt_keep_selection(dice_values: list[int], throw_number: int) -> list[int
         print("Invalid selection, please try again.")
 
 
-def prompt_save_category(table: dict[str, int]) -> str:
-    """Ask the player which category to save points to, looping until valid."""
-    available = [c for c in scoring.CATEGORIES if table[c] == 0]
+def prompt_save_category(table: scoring.ScoreTable) -> str:
+    """Ask the player which unfilled category to save points to, until valid."""
+    available = [c for c in scoring.CATEGORIES if table[c] is None]
     while True:
         choice = (
             input(f"Save points to which category? ({', '.join(available)}): ")
             .strip()
             .lower()
         )
-        if scoring.is_valid_category(choice):
+        if choice in available:
             return choice
         print("Invalid category, please try again.")
 
 
-def print_final_score(table: dict[str, int]) -> None:
+def print_final_score(table: scoring.ScoreTable) -> None:
     """Print the end-of-game total."""
     print()
     print(f"Game over — your final score is: {scoring.total_score(table)}")
