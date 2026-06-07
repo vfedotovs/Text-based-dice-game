@@ -118,18 +118,24 @@ makes testing nearly impossible. Steps:
 
 ---
 
-## 6. CI/CD — GitHub Actions
+## 6. CI/CD — GitHub Actions (DONE)
 
-- [ ] `.github/workflows/ci.yml` triggered on push + PR:
-      - Matrix over Python versions (e.g. 3.10–3.13).
-      - Steps: checkout → setup-python → `pip install -e ".[dev]"` →
-        `ruff check` → `ruff format --check` → `mypy` → `pytest --cov`.
-      - Upload coverage (optional: Codecov).
-- [ ] **Release workflow** (`release.yml`) triggered on a version tag (`v*`):
-      - Build with `python -m build`.
-      - Publish to PyPI via **trusted publishing** (OIDC, no API token), or
-        attach the wheel/sdist to a GitHub Release.
-- [ ] Add status badges (CI, coverage, PyPI version) to the README.
+- [x] `.github/workflows/ci.yml` triggered on push + PR to `main`:
+      - `lint` job: `ruff check` → `ruff format --check` → `mypy` (on 3.12).
+      - `test` job: matrix over Python 3.10–3.13 running `pytest --cov`.
+      - Concurrency cancels superseded runs; least-privilege `permissions`.
+      - Codecov upload stubbed (commented) pending an account/token.
+- [x] **Release workflow** (`release.yml`) triggered on a version tag (`v*`):
+      - `build` job: `python -m build` + `twine check`, uploads artifacts.
+      - `github-release` job: attaches wheel/sdist to an auto-noted GitHub
+        Release.
+      - PyPI Trusted Publishing (OIDC) job stubbed (commented) pending a
+        configured publisher on PyPI.
+- [x] Added a CI status badge to the README (coverage/PyPI badges to follow in
+      §8 once Codecov/PyPI are wired up).
+
+> Both workflow files validated as well-formed YAML; the lint/test commands are
+> the same ones already passing locally.
 
 ---
 
