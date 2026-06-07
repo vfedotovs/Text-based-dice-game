@@ -139,14 +139,16 @@ makes testing nearly impossible. Steps:
 
 ---
 
-## 7. Release Process
+## 7. Release Process (DONE)
 
-- [ ] Adopt **Semantic Versioning** (MAJOR.MINOR.PATCH).
-- [ ] Single source of version (e.g. `__version__` in `__init__.py` or
-      hatch-vcs deriving it from git tags).
-- [ ] Maintain `CHANGELOG.md` (keep-a-changelog style).
-- [ ] Release checklist: bump version → update changelog → tag `vX.Y.Z` →
-      push tag → CI builds & publishes.
+- [x] Adopt **Semantic Versioning** (MAJOR.MINOR.PATCH) — documented in
+      `RELEASING.md`.
+- [x] Single source of version: `__version__` in `src/dice_game/__init__.py`,
+      read by hatchling at build time (set up in §3).
+- [x] Maintain `CHANGELOG.md` (keep-a-changelog style) with a `0.1.0` entry.
+- [x] Documented release checklist in `RELEASING.md` (bump → changelog → tag
+      `vX.Y.Z` → push → `release.yml` builds & attaches dists).
+- [x] Cut the first `v0.1.0` tag to exercise `release.yml`.
 
 ---
 
